@@ -37,7 +37,7 @@
                                             <router-link :to="{ name: 'register' }">Đăng ký</router-link>
                                         </a-menu-item>
                                         <a-menu-item>
-                                            <a>Đăng xuất</a>
+                                            <a @click="logout()">Đăng xuất</a>
                                         </a-menu-item>
                                     </a-menu>
                                 </template>
@@ -55,14 +55,22 @@
 <script>
 import TheMenu from '@/components/frontend/home/TheMenu.vue';
 import { defineComponent, ref } from "vue";
+import { authStore } from "@/stores/auth-store";
+import { useRouter } from "vue-router";
 export default defineComponent({
     components: {
         TheMenu,
     },
     setup() {
+        const router = useRouter();
         const searchValue = ref('');
         const visible = ref(false);
         const visible_user = ref(false);
+
+        const logout = () => {
+            authStore().logout();
+            router.push({ name: "login" });
+        };
 
         const showDrawer = () => {
             visible.value = true;
@@ -78,6 +86,7 @@ export default defineComponent({
             searchValue,
             showDrawer,
             showDrawerUser,
+            logout,
         };
     },
 });

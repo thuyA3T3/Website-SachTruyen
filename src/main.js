@@ -23,6 +23,8 @@ import {
     Upload,
     Image,
     Tabs,
+    Comment,
+    Form,
     message
 } from 'ant-design-vue';
 
@@ -66,6 +68,9 @@ app.use(Carousel);
 app.use(Upload);
 app.use(Tabs);
 app.use(Image);
+app.use(Comment);
+app.use(Form);
+
 
 app.use(pinia);
 

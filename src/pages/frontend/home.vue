@@ -3,6 +3,9 @@
         <TheBanner :items="carouselItems" />
     </div>
     <div class="row d-flex justify-content-center ">
+        <router-link :to="{ name: 'comic' }">
+            <span>Huy</span>
+        </router-link>
         <div class="col-6">
             <h3 class="mt-3">
                 <span class="h3 fw-bold p-2 border-bottom border-dark bg-light">Truyện nổi bật</span>
@@ -53,9 +56,9 @@ import HorizontalComicList from "../../components/frontend/home/HorizontalComicL
 import ComicList from "../../components/frontend/home/ComicList.vue";
 import VerticalComicList from "../../components/frontend/home/VerticalComicList.vue";
 
-
+import { defineComponent, ref } from "vue";
 import { authStore } from '@/stores/auth-store.js';
-export default {
+export default defineComponent({
     components: {
         TheBanner,
         HorizontalComicList,
@@ -63,8 +66,10 @@ export default {
         VerticalComicList,
     },
     setup() {
+
+        const activeKey = ref('1');
         const store = authStore();
-        console.log(store.user);
+        console.log
         homeMenu().onSelectedKeys(["home"]);
         const carouselItems = [
             { id: 1, imageUrl: '../../../assets/logo.jpg', title: 'Slide 1', link: 'http://localhost:5173/home' },
@@ -130,7 +135,9 @@ export default {
         return {
             carouselItems,
             homeComics,
+            activeKey,
+            store,
         };
     },
-}
+});
 </script>

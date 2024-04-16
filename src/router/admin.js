@@ -21,6 +21,22 @@ const admin = [
                 component: () => import("../pages/admin/user/edit.vue")
             }
             ,
+            {
+                path: "genres/list",
+                name: "admin-list-genres",
+                component:()=> import("../pages/admin/genre/index.vue")
+            },
+            {
+                path: "genres/add",
+                name: "admin-add-genre",
+                component:()=> import("../pages/admin/genre/create.vue")
+            },
+            {
+                path: "genres/:id/edit",
+                name: "admin-genres-edit",
+                component: () => import("../pages/admin/genre/edit.vue")
+            }
+            ,
 
             {
                 path: "roles",
@@ -33,7 +49,8 @@ const admin = [
                 path: "settings",
                 name: "admin-settings",
                 component: () => import("../pages/admin/settings/index.vue")
-            }
+            },
+
 
         ]
     }
