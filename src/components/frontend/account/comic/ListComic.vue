@@ -16,7 +16,9 @@
 
 
                             </a-button>
-
+                            <a-button type="primary" danger @click="deleteComic(record.id)">
+                                <font-awesome-icon :icon="['fas', 'trash']" />
+                            </a-button>
                         </template>
                     </template>
                 </a-table>
@@ -74,13 +76,35 @@ export default defineComponent({
                 });
         };
 
-
+        const deleteComic = (id) => {
+            Modal.confirm({
+                content: 'Bạn có chắc chắn muốn xóa?',
+                icon: createVNode(ExclamationCircleOutlined),
+                onOk() {
+                    axiosInstance.delete(`/book/${id}`)
+                        .then((response) => {
+                            if (response.status == 200) {
+                                message.success("Truyện đã được xóa");
+                                getComic();
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                },
+                cancelText: 'Hủy',
+                onCancel() {
+                    Modal.destroyAll();
+                },
+            });
+        };
 
         getComic();
 
         return {
             columns,
             comic,
+            deleteComic,
         };
     }
 });
