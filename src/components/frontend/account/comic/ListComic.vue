@@ -1,6 +1,5 @@
 <template>
-    <a-card title="Danh sách truyện cửa bạn" style="width: 100%">
-
+    <a-card title="Danh sách truyện của bạn" style="width: 100%">
         <div class="row">
             <div class="col-12">
                 <a-table :dataSource="comic" :columns="columns" :scroll="{ x: 576 }">
@@ -10,11 +9,19 @@
                                 {{ index + 1 }}
                             </span>
                         </template>
+                        <template v-if="column.key === 'right'">
+                            <a-button type="primary" class="me-sm-2 mb-2">
+                                <router-link :to="{ name: 'build_stories', params: { book_id: record.id } }">
+                                    <font-awesome-icon :icon="['fas', 'plus']" />
+                                </router-link>
+                            </a-button>
+                        </template>
                         <template v-if="column.key === 'action'">
                             <a-button type="primary" class="me-sm-2 mb-2">
-
-
-
+                                <router-link
+                                    :to="{ name: 'edit_stories', params: { book_id: record.id, chapter_id: 1 } }">
+                                    <font-awesome-icon :icon="['fas', 'pen-to-square']" />
+                                </router-link>
                             </a-button>
                             <a-button type="primary" danger @click="deleteComic(record.id)">
                                 <font-awesome-icon :icon="['fas', 'trash']" />
@@ -57,6 +64,10 @@ export default defineComponent({
                 title: 'Mô tả',
                 dataIndex: 'description',
                 key: 'description',
+            },
+            {
+                title: 'Viết tiếp',
+                key: 'right',
             },
             {
                 title: 'Công cụ',

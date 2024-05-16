@@ -12,17 +12,18 @@
                         </span>
 
                     </div>
-                    <div class="col-sm-2 col-4 align-items-center">
+                    <div class="col-4 col-sm-2 align-items-center">
                         <img src="../../../assets/logo.jpg" class="ms-3"
-                            style="max-width: 50%; max-height: 70%; border-radius: 20%;" alt="Logo">
+                            style="max-width: 70%; max-height: 50px; border-radius: 10%;" alt="Logo">
                     </div>
 
 
-                    <div class="col-6 d-sm-flex  d-none ">
+                    <div class="col-sm-6 d-sm-flex  d-none ">
                         <TheMenu />
                     </div>
                     <div class="col-sm-3 col-4 d-flex align-items-center">
-                        <a-input-search v-model:value="searchValue" placeholder="Tìm kiếm" enter-button />
+                        <a-input-search v-model:value="searchValue" placeholder="Tìm kiếm" @search="search()"
+                            enter-button />
                     </div>
                     <div class="col-sm-1 d-none d-sm-flex align-items-center justify-content-end">
                         <div class="col-sm-1 d-none d-sm-flex align-items-center justify-content-end">
@@ -52,42 +53,31 @@
         </a-layout>
     </div>
 </template>
-<script>
+<script setup>
 import TheMenu from '@/components/frontend/home/TheMenu.vue';
 import { defineComponent, ref } from "vue";
 import { authStore } from "@/stores/auth-store";
 import { useRouter } from "vue-router";
-export default defineComponent({
-    components: {
-        TheMenu,
-    },
-    setup() {
-        const router = useRouter();
-        const searchValue = ref('');
-        const visible = ref(false);
-        const visible_user = ref(false);
 
-        const logout = () => {
-            authStore().logout();
-            router.push({ name: "login" });
-        };
+const router = useRouter();
+const searchValue = ref('');
+const visible = ref(false);
+const visible_user = ref(false);
 
-        const showDrawer = () => {
-            visible.value = true;
-        };
+const search = () => {
+    router.push({ name: 'featured', query: { search: searchValue.value } })
+}
 
-        const showDrawerUser = () => {
-            visible_user.value = true;
-        };
+const logout = () => {
+    authStore().logout();
+    router.push({ name: "login" });
+};
 
-        return {
-            visible,
-            visible_user,
-            searchValue,
-            showDrawer,
-            showDrawerUser,
-            logout,
-        };
-    },
-});
+const showDrawer = () => {
+    visible.value = true;
+};
+
+const showDrawerUser = () => {
+    visible_user.value = true;
+};
 </script>

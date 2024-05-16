@@ -37,15 +37,20 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 
-
 library.add(fas, fab, far); 
 
 import 'ant-design-vue/dist/reset.css';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import 'bootstrap/dist/css/bootstrap-utilities.min.css';
 
+import { QuillEditor } from '@vueup/vue-quill';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import '@vueup/vue-quill/dist/vue-quill.bubble.css';
+
 const app = createApp(App);
 const pinia = createPinia();
+
+app.component('QuillEditor', QuillEditor);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 
@@ -70,7 +75,6 @@ app.use(Tabs);
 app.use(Image);
 app.use(Comment);
 app.use(Form);
-
 
 app.use(pinia);
 

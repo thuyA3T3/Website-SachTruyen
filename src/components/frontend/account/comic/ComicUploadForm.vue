@@ -76,8 +76,10 @@ import { defineComponent, ref, reactive, toRefs } from 'vue';
 import axios from 'axios';
 import { authStore } from '@/stores/auth-store.js';
 import { message } from 'ant-design-vue';
+import { useRouter } from 'vue-router';
 export default defineComponent({
     setup() {
+        const router = useRouter();
         const store = authStore();
         const imageUrl = ref('');
         const errors = ref({});
@@ -126,11 +128,12 @@ export default defineComponent({
                 console.error("Error fetching genres:", error);
             }
         };
+
         const createBook = () => {
             console.log(book);
             axios.post("http://127.0.0.1:8000/api/book", book)
                 .then((response) => {
-
+                    router.push({ name: 'build_stories', params: { book_id: response.data.genre.id } });
                     message.success('Bạn đã đăng truyện thành công');
                 })
                 .catch((error) => {

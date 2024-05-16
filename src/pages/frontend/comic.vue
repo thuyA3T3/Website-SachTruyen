@@ -80,6 +80,7 @@ import { defineComponent, ref } from "vue";
 import HorizontalComicList from "../../components/frontend/home/HorizontalComicList.vue";
 import Comment from "../../components/frontend/comic/Comment.vue";
 import Chapter from "../../components/frontend/comic/Chapter.vue";
+import { useRoute } from "vue-router";
 
 import { authStore } from "@/stores/auth-store.js";
 export default defineComponent({
@@ -95,55 +96,55 @@ export default defineComponent({
                 id: 2,
                 title: 'One Piece',
                 author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
+                image: '',
             },
             {
                 id: 2,
                 title: 'One Piece',
                 author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
+                image: '',
             },
             {
                 id: 2,
                 title: 'One Piece',
                 author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
+                image: '',
             },
             {
                 id: 2,
                 title: 'One Piece',
                 author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
+                image: '',
             },
             {
                 id: 2,
                 title: 'One Piece',
                 author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
+                image: '',
             },
             {
                 id: 2,
                 title: 'One Piece',
                 author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
+                image: '',
             },
             {
                 id: 2,
                 title: 'One Piece',
                 author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
+                image: '',
             },
             {
                 id: 2,
                 title: 'One Piece',
                 author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
+                image: '',
             },
             {
                 id: 2,
                 title: 'One Piece',
                 author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
+                image: '',
             },
         ];
         return {

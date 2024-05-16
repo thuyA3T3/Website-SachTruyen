@@ -1,26 +1,32 @@
 <template>
     <a-list item-layout="horizontal" :data-source="comics" :pagination="pagination">
         <template #renderItem="{ item }">
-            <a-list-item>
-                <a-list-item-meta :description=item.author>
-                    <template #title>
-                        <a>{{ item.title }}</a>
+            <router-link :to="{ name: 'comic', params: { id: item.id } }">
+                <a-list-item>
+
+                    <a-list-item-meta :description=item.author>
+                        <template #title>
+                            <a>{{ item.title }}</a>
+                        </template>
+                        <template #avatar>
+                            <a-avatar :src=item.image :size="64" />
+                        </template>
+                    </a-list-item-meta>
+
+                    <template #actions>
+                        <span>
+                            <font-awesome-icon :icon="['far', 'eye']" />
+                        </span>
                     </template>
-                    <template #avatar>
-                        <a-avatar :src=item.image :size="64" />
-                    </template>
-                </a-list-item-meta>
-                <template #actions>
-                    <span>
-                        <font-awesome-icon :icon="['far', 'eye']" />
-                    </span>
-                </template>
-            </a-list-item>
+
+                </a-list-item>
+            </router-link>
         </template>
     </a-list>
 </template>
 <script>
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
+import { watchEffect } from 'vue';
 
 export default defineComponent({
     props: {
@@ -30,7 +36,10 @@ export default defineComponent({
         },
     },
     setup(props) {
-        const comics = ref(props.comics);
+        const comics = computed(() => {
+            return props.comics
+        });
+
         const pagination = {
             onChange: page => {
             },

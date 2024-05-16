@@ -2,10 +2,13 @@
     <div>
         <a-row :gutter="16" class="comic-list">
             <a-col :xs="12" :sm="8" :md="6" :lg="6" v-for="(comic, index) in paginatedComics" :key="index" class="p-1">
-                <a-card hoverable class="mb-3 p-0">
-                    <a-image :preview="{ visible: false }" :src="comic.image" style="border-radius: 5px" class="mb-3" />
-                    <a-card-meta :title="comic.title" :description="comic.author"></a-card-meta>
-                </a-card>
+                <router-link :to="{ name: 'comic', params: { id: comic.id } }">
+                    <a-card hoverable class="mb-3 p-0">
+                        <a-image :preview="{ visible: false }" :src="comic.image" style="border-radius: 5px"
+                            class="mb-3" />
+                        <a-card-meta :title="comic.title" :description="comic.author"></a-card-meta>
+                    </a-card>
+                </router-link>
             </a-col>
         </a-row>
         <a-pagination :total="comics.length" :pageSize="pageSize" v-model:current="currentPage"

@@ -3,9 +3,6 @@
         <TheBanner :items="carouselItems" />
     </div>
     <div class="row d-flex justify-content-center ">
-        <router-link :to="{ name: 'comic' }">
-            <span>Huy</span>
-        </router-link>
         <div class="col-6">
             <h3 class="mt-3">
                 <span class="h3 fw-bold p-2 border-bottom border-dark bg-light">Truyện nổi bật</span>
@@ -55,6 +52,7 @@ import TheBanner from "../../components/frontend/home/TheBanner.vue";
 import HorizontalComicList from "../../components/frontend/home/HorizontalComicList.vue";
 import ComicList from "../../components/frontend/home/ComicList.vue";
 import VerticalComicList from "../../components/frontend/home/VerticalComicList.vue";
+import axiosInstance from '@/axiosInstance';
 
 import { defineComponent, ref } from "vue";
 import { authStore } from '@/stores/auth-store.js';
@@ -71,67 +69,39 @@ export default defineComponent({
         const store = authStore();
         console.log
         homeMenu().onSelectedKeys(["home"]);
-        const carouselItems = [
-            { id: 1, imageUrl: '../../../assets/logo.jpg', title: 'Slide 1', link: 'http://localhost:5173/home' },
-            { id: 2, imageUrl: '../../../assets/logo.jpg', title: 'Slide 2', link: 'http://localhost:5173/account' },
+        const carouselItems = ref([]);
 
-        ];
-        const homeComics = [
-            {
-                id: 2,
-                title: 'One Piece',
-                author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
-            },
-            {
-                id: 2,
-                title: 'One Piece',
-                author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
-            },
-            {
-                id: 2,
-                title: 'One Piece',
-                author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
-            },
-            {
-                id: 2,
-                title: 'One Piece',
-                author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
-            },
-            {
-                id: 2,
-                title: 'One Piece',
-                author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
-            },
-            {
-                id: 2,
-                title: 'One Piece',
-                author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
-            },
-            {
-                id: 2,
-                title: 'One Piece',
-                author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
-            },
-            {
-                id: 2,
-                title: 'One Piece',
-                author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
-            },
-            {
-                id: 2,
-                title: 'One Piece',
-                author: 'Eiichiro Oda',
-                image: 'http://localhost:8000/storage/images/1711508546.jpg',
-            },
-        ];
+        const homeComics = ref([]);
+
+        const getBooks = () => {
+            axiosInstance.get('/book')
+                .then((response) => {
+                    homeComics.value = response.data.map(book => {
+                        return {
+                            id: book.id,
+                            title: book.title,
+                            author: book.author.authorname,
+                            image: book.image,
+                        };
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+
+        const getGenres = async () => {
+            try {
+                const response = await axiosInstance.get('/list_genres')
+                carouselItems.value = response.data
+            } catch (error) {
+                console.log('Error:', error)
+            }
+        }
+        getGenres();
+
+        getBooks();
+
         return {
             carouselItems,
             homeComics,

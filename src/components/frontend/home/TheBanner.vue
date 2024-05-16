@@ -10,21 +10,23 @@
                 <right-circle-outlined />
             </div>
         </template>
-        <a v-for="item in items" :key="item.id" :href="item.link">
-            <img :src="item.imageUrl" alt="" />
-            <h3>{{ item.title }}</h3>
+        <a v-for="item in items" :key="item.id" :href="item.avatar">
+            <div style="display: flex; position: relative; justify-content: center; align-items: center;">
+                <img :src="item.avatar" alt="" />
+                <h3 style="position: absolute;">{{ item.name }}</h3>
+            </div>
         </a>
     </a-carousel>
 </template>
 
 <script>
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons-vue';
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref, watchEffect } from 'vue';
 
 export default defineComponent({
     props: {
         items: {
-            type: Array,
+            type: Object,
             required: true,
         },
     },
@@ -33,11 +35,14 @@ export default defineComponent({
         RightCircleOutlined,
     },
     setup(props) {
-        const items = ref(props.items);
 
+        const items = computed(() => {
+            return props.items
+        });
         return {
             items,
         };
+
     },
 });
 </script>
@@ -48,7 +53,6 @@ export default defineComponent({
     text-align: center;
     height: 160px;
     line-height: 160px;
-    background: #364d79;
     overflow: hidden;
 }
 
@@ -72,5 +76,6 @@ export default defineComponent({
 
 .ant-carousel :deep(.slick-slide h3) {
     color: #fff;
+    font-size: xx-large;
 }
 </style>

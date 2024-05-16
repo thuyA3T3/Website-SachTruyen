@@ -1,5 +1,11 @@
 <template>
-    trang thể loại
+    <div class="container">
+        <div class="flex">
+            <button>
+                danh muc
+            </button>
+        </div>
+    </div>
 </template>
 <script>
 import { homeMenu } from "../../stores/home-menu.js";

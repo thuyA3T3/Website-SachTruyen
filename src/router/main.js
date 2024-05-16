@@ -1,7 +1,7 @@
 import { authStore } from '@/stores/auth-store.js';
 
+// Middleware sẽ kiểm tra xem người dùng đã đăng nhập chưa
 const authMiddleware = (to, from, next) => {
-  
   if (!authStore().isAuthenticated) {
     next({ name: 'login' });
   } else {
@@ -37,8 +37,18 @@ const main = [
       {
         path: "account",
         name: "account",
-        component: () => import("../pages/frontend/account.vue"),
+        component: () => import("../pages/frontend/account/account.vue"),
         beforeEnter: authMiddleware,
+      },
+      {
+        path: "/stories/:book_id",
+        name: "build_stories",
+        component: () => import("../pages/frontend/account/ContentComic.vue"),
+      },
+      {
+        path: "/stories/:book_id/:chapter_id",
+        name: "edit_stories",
+        component: () => import("../pages/frontend/account/ContentComic.vue"),
       },
       {
         path: "login",
@@ -51,13 +61,12 @@ const main = [
         component: () => import("../pages/frontend/user/register.vue"),
       },
       {
-        path: "comic", 
+        path: "/comic/:id", 
         name: "comic",
         component: () => import("../pages/frontend/comic.vue"),
       },
     ],
   },
 ];
-
 
 export default main;
